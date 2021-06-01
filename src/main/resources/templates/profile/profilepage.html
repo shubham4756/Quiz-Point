@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style type="text/css">
+    .g
+    {
+        float: right;
+        margin-right: 120px;
+        margin-bottom: 25px;
+        margin-top: -8px;
+
+    }
+    .x71
+    {
+        background-color:rgb(153, 204, 255);
+        color: white;
+        padding: 8px 18px;
+        margin: 8px 0;
+        margin-bottom: 20px;
+        border: none;
+        cursor: pointer;
+        width: auto;
+        border-radius: 2px;
+    }
+    .right
+    {
+        float: left;
+        margin-top: 5px;
+        padding-bottom: 30px;
+    }
+    .d1
+    {
+        float: left;
+        margin-left: 48px;
+        padding-bottom: 30px;
+    }
+    .left
+    {
+        float: left;
+        width: 160px;
+        margin-left: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
+    .z
+    {
+
+        z-index:1;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: 80px;
+        box-shadow: 0px 10px 10px -10px #000000;
+        outline: none;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        background-image: none;
+        padding-bottom: 30px;
+    }
+    .x{
+        width:160px;
+        margin-left:520px;
+        margin-top:10px;
+    }
+    .y
+    {
+        text-decoration: none;
+        color: black;
+        margin-left: 5px;
+        padding-bottom: 30px;
+    }
+    .y:hover
+    {   text-decoration: none;
+        color: black;}
+    .main{
+        width:80%;
+        margin-top:10px;
+        margin-left:150px;
+    }
+    .leftt{
+        width:300px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) ;
+        background-color:white;
+        height:500px;
+        margin-right: 10px;
+        padding-left:15px;
+        padding-right:15px;
+    }
+    .personal-info{
+        display: flex;
+        margin-left:240px;
+    }
+    .rightt{
+        padding-top: 30px;
+        width:600px;
+        height:auto;
+        background-color:white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin-left:2px;
+        padding-left:30px;
+        padding-right:30px;
+    }
+    .m2{
+        display: flex;
+    }
+</style>
+<body style="font-family: sans-serif; background-color: #f3f5f9;">
+<div class="z">
+    <div class="left">
+        <a th:href="${'/'}"><img alt="logo" src="../static/logo.jpeg" style="size: 12px"></a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/fluent/2x/book.png" style="width:25px;margin-left:15px;margin-top:4px">
+    </div>
+    <div class="right">
+        <a href="/dashboard" class="y">Dashboard</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/dusk/2x/add-property.png" style="width:25px;margin-left:15px;margin-top:4px">
+    </div>
+    <div class="right">
+        <a href="/createquizform" class="y">Create Quiz</a>
+    </div>
+    <div class="d1">
+        <img style="width: 20px;margin-top: 9px" src="https://img.icons8.com/color/2x/about.png">
+    </div>
+    <div class="right">
+        <a href="/#ab" class="y"  >About us</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/color/2x/user-group-skin-type-7.png" style="width:35px;margin-left:15px">
+    </div>
+    <div class="right">
+        <a href="/#dev" class="y">Team</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/ultraviolet/2x/add-contact-to-company.png" style="width:25px;margin-left:15px;margin-top:4px">
+    </div>
+    <div class="right">
+        <a href="/#contact" class="y">Contact us</a>
+    </div>
+    <div id="loggoutt">
+        <div class="d1">
+            <img src="https://img.icons8.com/color/2x/about-us-male--v1.png" style="width:35px;margin-left:15px">
+        </div>
+        <div class="right">
+            <a href="/user/profile" class="y">Profile Info</a>
+        </div>
+        <div class='g' id='firstx'>
+            <button class='x71' onclick='logout()' style='width:auto;' type='button'>Logout</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="alert alert-success"  role="alert" style="width: max-content; text-align: center; margin:0 auto; margin-top:5px; margin-bottom: 5px" th:text="${success}" th:if="${success}"></div>
+<div class="alert alert-danger" role="alert" style="width: max-content; text-align: center; margin:0 auto; margin-top:5px; margin-bottom: 5px;" th:text="${error}" th:if="${error}"></div>
+<br>
+<div class="personal-info">
+
+    <div class="leftt">
+        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" style="width:160px;margin-left:65px;margin-top:20px" th:if="${user.getGender().equalsIgnoreCase('male')}">
+        <img src="https://www.bootdey.com/img/Content/avatar/avatar8.png" style="width:160px;margin-left:65px;margin-top:20px" th:if="${user.getGender().equalsIgnoreCase('female')}">
+        <h2 style="font-family:Segoe UI Symbol;text-align: center;color:grey;" th:text="${user.getFirstname()}"></h2>
+        <h2 style="font-family:Segoe UI Symbol;text-align: center;color:grey;" th:text="${user.getLastname()}"></h2>
+        <br><br>
+
+        <form th:action="${'/user/changepassword'}" method="get">
+            <button type="submit" style="margin-left: 38px; width: 200px; margin-bottom: 8px;" class="btn btn-primary">Change Password</button>
+        </form>
+        <form th:action="${'/user/createdquizzes'}" method="get">
+            <button type="submit" style="margin-left:38px; width: 200px; margin-bottom: 8px;" class="btn btn-primary">Created Quizzes</button>
+        </form>
+        <form th:action="${'/user/attendedquizzes'}" method="get">
+            <button type="submit" style="margin-left:38px; width: 200px; margin-bottom: 8px;" class="btn btn-primary">Attended Quizzes</button>
+        </form>
+    </div>
+    <div class="rightt">
+
+        <p style="border-bottom:1px solid rgba(0,0,0,0.5);padding-bottom:10px;font-size:22px;">
+            Your Profile
+            <a href="/user/editprofile" style="display: block; width: auto; margin-left:780px; margin-top: -30px;">
+                <i class="fa fa-edit" title="Edit profile" style="margin-left:-380px; width: auto; color: grey;cursor: pointer;"> Edit Profile</i>
+            </a>
+        </p>
+
+        <div class="m2" style="border-bottom:1px solid rgba(0,0,0,0.01);padding-bottom:10px;">
+            <label  style="color:lightgrey;">Email:</label>
+            <label style="color:#476b6b;margin-left:153px;" th:text="${user.getEmail()}"></label>
+        </div>
+        <div class="m2" style="border-bottom:1px solid rgba(0,0,0,0.01);padding-bottom:10px;">
+            <label  style="color:lightgrey;">Phone:</label>
+            <label style="color:#476b6b;margin-left:145px;" th:text="${user.getContactNumber()}"></label>
+        </div>
+
+        <div class="m2" style="border-bottom:1px solid rgba(0,0,0,0.01);padding-bottom:10px;">
+            <label  style="color:lightgrey;">City:</label>
+            <label style="color:#476b6b;margin-left:163px;" th:text="${user.getCity()}">city</label>
+        </div>
+
+
+        <div class="m2" style="border-bottom:1px solid rgba(0,0,0,0.01);padding-bottom:10px;">
+            <label  style="color:lightgrey;">Gender</label>
+            <label style="color:#476b6b;margin-left:143px;" th:text="${user.getGender()}"></label>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" th:inline="javascript">
+    const loggedIn = [[${isLogged}]];
+    console.log([[${isLogged}]]);
+    if(loggedIn===true) {
+        $("#logginn").css('display','none');
+        $("#loggoutt").css('display','block');
+    } else {
+        $("#logginn").css('display','block');
+        $("#loggoutt").css('display','none');
+    }
+    var modal = document.getElementById('id01');
+    var m2=$("#logout-modal");
+    window.onclick = function(event)
+    {
+        if (event.target == modal)
+        {
+            modal.style.display = "none";
+            m2.css('display','none');
+        }
+    }
+    function logout() {
+        $("#logout-modal").css('display','block');
+    }
+    function myFunction()
+    {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    function loginform()
+    {
+        document.getElementById('id01').style.display='block';
+    }
+
+</script>
+
+
+</body>
+</html>

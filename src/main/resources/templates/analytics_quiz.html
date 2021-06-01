@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Title</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+    /* Create two unequal columns that floats next to each other */
+    .column {
+      margin-top: -20px;
+      width: 100%;
+      float: left;
+      height: 700px; /* Should be removed. Only for demonstration */
+    }
+
+    .leftside {
+      width: 23%;
+    }
+
+    .rightside {
+      width: 77%;
+    }
+
+    .row {
+      width: 100%;
+      display: table;
+      clear: both;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.4);
+      padding-top: 60px;
+
+    }
+
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto 15% auto;
+      border: 1px solid #888;
+      width: 30%;
+      height:auto;
+    }
+    html
+    {
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+    body
+    {
+      font-family: Arial, Helvetica, sans-serif;
+      height: 100%;
+    }
+    .left
+    {
+      float: left;
+      width: 160px;
+      margin-left: 10px;
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+    }
+
+    .right
+    {
+      float: left;
+      margin-top: 5px;
+      padding-bottom: 30px;
+    }
+
+    .z
+    {
+
+      z-index:1;
+      width: 100%;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      height: 80px;
+      box-shadow: 0px 10px 10px -10px #000000;
+      outline: none;
+      position: sticky;
+      top: 0;
+      background-color: white;
+      background-image: none;
+      padding-bottom: 30px;
+    }
+    .y
+    {
+      text-decoration: none;
+      color: black;
+      margin-left: 5px;
+      padding-bottom: 30px;
+    }
+    .y:hover
+    {   text-decoration: none;
+      color: black;}
+    .d1
+    {
+      float: left;
+      margin-left: 48px;
+      padding-bottom: 30px;
+    }
+    .jumbotron {
+      margin: 15px;
+      height: 1000px;
+    }
+    .display-4 {
+      text-align: center;
+      margin-top: -35px;
+    }
+    .g
+    {
+      float: right;
+      margin-right: 120px;
+      margin-bottom: 25px;
+      margin-top: -8px;
+
+    }
+    .modal-title {
+      text-align: center;
+    }
+    .dd {
+
+      padding: 10px;
+    }
+    .mmm {
+
+    }
+
+    .x71
+    {
+      background-color:rgb(153, 204, 255);
+      color: white;
+      padding: 8px 18px;
+      margin: 8px 0;
+      margin-bottom: 20px;
+      border: none;
+      cursor: pointer;
+      width: auto;
+      border-radius: 2px;
+    }
+    #ii1 , #ii2 {
+      align-self: center;
+      display: inline-block;
+    }
+    .oo1 {
+      display: inline-block;
+    }
+    .hi {
+      display: inline-block;
+    }
+
+    #xx1, #qqpoints {
+      display: inline-block;
+    }
+    .xbutn {
+      background-color:red;
+      text-align: center;
+      color: white;
+      padding: 8px 18px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: auto;
+      border-radius: 2px;
+    }
+    .aa1 {
+      margin-bottom: 10px;
+    }
+    .ppp {
+      padding: 0px;
+    }
+    .xbutg {
+      background-color:green;
+      color: white;
+      text-align: center;
+      padding: 8px 18px;
+      margin: 20px 0;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .input-group-prepend {
+      display: inline-block;
+    }
+
+    .x71:hover
+    {
+      opacity: 0.8;
+    }
+    .lll {
+
+    }
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #f44336;
+    }
+    .bg
+    {
+      width: 100%;
+      height: 630px;
+      background-image: url("https://images.pexels.com/photos/374857/pexels-photo-374857.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size:cover;
+    }
+  </style>
+</head>
+
+<body>
+<div id="logout-modal" class="modal" style="align-content: center; text-align: center;" >
+  <div class="modal-content animate" style="width: 40%; align-content: center;">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('logout-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+    </div>
+    <div class="wrapper" style="width:100%;height:70%;margin: 15px;padding: 30px;border-radius:5px;overflow: hidden;">
+      <div class="title-text" style="display: flex;width: 100%">
+        <div class="title login" style="width: 100%; font-size:35px;font-weight: 600;text-align: center; margin: 10px auto;">Logout</div>
+        <hr>
+      </div>
+      <br>
+      <div class="form-container" style="width: 100%;overflow: hidden; align-content: center;">
+        <div class="form-inner" style="display: flex;width: 100%;">
+          <form action="/logout" method="post" class="login" id="login" style="width:100%; align-content: center;">
+            <h2 style="color: red; text-align: center;">Are You Sure ? </h2><br>
+            <button class='xbutg' onclick="document.getElementById('logout-modal').style.display='none'" style='width:200px;
+								align-content: center;' type='button' >NO</button>
+            <button class='xbutn' style='width:200px; text-align: center;' type='submit'>YES</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="z" >
+  <div class="left">
+    <a th:href="${'/'}"><img alt="logo" src="../static/logo.jpeg" style="size: 12px"></a>
+  </div>
+  <div class="d1">
+    <img src="https://img.icons8.com/fluent/2x/book.png" style="width:25px;margin-left:15px;margin-top:4px">
+  </div>
+  <div class="right">
+    <a href="/dashboard" class="y">Dashboard</a>
+  </div>
+  <div class="d1">
+    <img src="https://img.icons8.com/dusk/2x/add-property.png" style="width:25px;margin-left:15px;margin-top:4px">
+  </div>
+  <div class="right">
+    <a href="/createquizform" class="y">Create Quiz</a>
+  </div>
+  <div class="d1">
+    <img style="width: 20px;margin-top: 9px" src="https://img.icons8.com/color/2x/about.png">
+  </div>
+  <div class="right">
+    <a href="/#ab" class="y"  >About us</a>
+  </div>
+  <div class="d1">
+    <img src="https://img.icons8.com/color/2x/user-group-skin-type-7.png" style="width:35px;margin-left:15px">
+  </div>
+  <div class="right">
+    <a href="/#dev" class="y">Team</a>
+  </div>
+  <div class="d1">
+    <img src="https://img.icons8.com/ultraviolet/2x/add-contact-to-company.png" style="width:25px;margin-left:15px;margin-top:4px">
+  </div>
+  <div class="right">
+    <a href="/#contact" class="y">Contact us</a>
+  </div>
+  <div id="loggoutt">
+    <div class="d1">
+      <img src="https://img.icons8.com/color/2x/about-us-male--v1.png" style="width:35px;margin-left:15px">
+    </div>
+    <div class="right">
+      <a href="/user/profile" class="y">Profile Info</a>
+    </div>
+
+    <div class='g' id='firstx'>
+      <button class='x71' onclick='logout()' style='width:auto;' type='button'>Logout</button>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="row">
+  <div class="column leftside" style="background-color:silver; padding: 30px;">
+
+    <button class="btn btn-primary xyz" id="btn1" onclick="loadUsers()" style="width: 300px; margin-top: 10px;">See User Responses</button>
+    <button class="btn btn-primary xyz" id="btn2" onclick="loadCount()" style="width: 300px; margin-top: 10px;">Count Points</button>
+  </div>
+  <div class="column rightside" id="rightd" style="background-color:white; padding: 30px;">
+
+    <!--  quiz/ quizId/ count   -->
+    <div id="headMain" style="display: block">
+      <h2 style="vertical-align: center; horiz-align: center;"><b>The Analytics Section</b></h2>
+    </div>
+
+    <div id="countButton" style="height: 100%; width: 100%; display: none;">
+      <h4 style="vertical-align: center; horiz-align: center;">Click Here to count points of all Attendee!!</h4>
+      <button type="submit" style="width: 200px; vertical-align: center; horiz-align: center;" class="btn btn-primary" onclick="countPointsToServer()">Count Points</button>
+    </div>
+
+    <div style="margin: 8%; display: none;" id="userTable">
+      <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Email Id</th>
+          <th scope="col">Points</th>
+          <th scope="col">Response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="q : ${analyticsQuizzes}">
+          <th scope="row" th:text="${q.getUserEmail()}"></th>
+          <td th:text="${q.getPoint()}"></td>
+          <td>
+            <a th:href="${'/quiz/'+ quizId + '/review/' + q.getUserId()}" class="btn btn-warning" role="button">Review</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+  </div>
+</div>
+
+
+</body>
+
+<script type="text/javascript" th:inline="javascript">
+  let quizId = [[${quizId}]];
+  function logout() {
+    $("#logout-modal").css('display','block');
+  }
+  $(document).ready(function() {
+    $('.xyz').on("click", function() {
+      event.preventDefault();
+      $("#myIframe").attr("src", $(this).attr('href'));
+    });
+  });
+
+  function loadUsers() {
+    $('#headMain').css('display', 'none');
+    $('#userTable').css('display', 'block');
+    $('#countButton').css('display', 'none');
+  }
+
+  function loadCount() {
+    $('#headMain').css('display', 'none');
+    $('#userTable').css('display', 'none');
+    $('#countButton').css('display', 'block');
+  }
+
+  function countPointsToServer() {
+    console.log(quizId);
+    $.ajax({
+      url: "http://localhost:8082/quiz/" + quizId + "/count",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({}),
+      dataType: "json",
+      success:function(data) {
+        console.log('ohk');
+        swal("calculating points .... it may takes some times","", "success");
+      },
+      error: function (e) {
+        swal("calculating points .... it may takes some times","", "success");
+      }
+    });
+  }
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz form</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<style type="text/css">
+    .g
+    {
+        float: right;
+        margin-right: 120px;
+        margin-bottom: 25px;
+        margin-top: -8px;
+
+    }
+    .x71
+    {
+        background-color:rgb(153, 204, 255);
+        color: white;
+        padding: 8px 18px;
+        margin: 8px 0;
+        margin-bottom: 20px;
+        border: none;
+        cursor: pointer;
+        width: auto;
+        border-radius: 2px;
+    }
+    .right
+    {
+        float: left;
+        margin-top: 5px;
+        padding-bottom: 30px;
+    }
+    .d1
+    {
+        float: left;
+        margin-left: 48px;
+    }
+    .left
+    {
+        float: left;
+        width: 160px;
+        margin-left: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
+    .z
+    {
+
+        z-index:1;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: 80px;
+        box-shadow: 0px 10px 10px -10px #000000;
+        outline: none;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        background-image: none;
+        padding-bottom: 30px;
+    }
+    .x{
+        width:160px;
+        margin-left:520px;
+        margin-top:10px;
+    }
+    .y
+    {
+        text-decoration: none;
+        color: black;
+        margin-left: 5px;
+        padding-bottom: 30px;
+    }
+    .y:hover
+    {   text-decoration: none;
+        color: black;}
+    .main{
+        width:80%;
+        margin-top:10px;
+        margin-left:150px;
+    }
+
+    .leftt
+    {
+        width:300px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) ;
+        background-color:white;
+        height:500px;
+        margin-right: 10px;
+        padding-left:15px;
+        padding-right:15px;
+    }
+    .personal-info{
+        display: flex;
+        margin-left:240px;
+    }
+    .rightt{
+        padding-top: 30px;
+        width:600px;
+        height:auto;
+        background-color:white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin-left:2px;
+        padding-left:30px;
+        padding-right:30px;
+    }
+    .m2{
+        display: flex;
+    }
+</style>
+
+<body style="font-family: sans-serif; background-color: #f3f5f9;">
+
+<div class="z">
+    <div class="left">
+        <a th:href="${'/'}"><img alt="logo" src="../static/logo.jpeg" style="size: 12px"></a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/fluent/2x/book.png" style="width:25px;margin-left:15px;margin-top:4px">
+    </div>
+    <div class="right">
+        <a href="/dashboard" class="y">Dashboard</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/dusk/2x/add-property.png" style="width:25px;margin-left:15px;margin-top:4px">
+    </div>
+    <div class="right">
+        <a href="/createquizform" class="y">Create Quiz</a>
+    </div>
+    <div class="d1">
+        <img style="width: 20px;margin-top: 9px" src="https://img.icons8.com/color/2x/about.png">
+    </div>
+    <div class="right">
+        <a href="/#ab" class="y"  >About us</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/color/2x/user-group-skin-type-7.png" style="width:35px;margin-left:15px">
+    </div>
+    <div class="right">
+        <a href="/#dev" class="y">Team</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/ultraviolet/2x/add-contact-to-company.png" style="width:25px;margin-left:15px;margin-top:4px">
+    </div>
+    <div class="right">
+        <a href="/#contact" class="y">Contact us</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/color/2x/about-us-male--v1.png" style="width:35px;margin-left:15px">
+    </div>
+    <div class="right">
+        <a href="/user/profile" class="y">Profile Info</a>
+    </div>
+    <div class='g' id='firstx'>
+        <button class='x71' onclick='logout()' style='width:auto;' type='button' id="loggoutt">Logout</button>
+    </div>
+</div>
+
+<div style="background-color: white; margin: 50px auto; width: 50%; height: auto; padding: 30px;">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" style="height: 38px;"><label for="quizName"> Quiz Name :</label> </span>
+        </div>
+        <input type="text" placeholder="Quiz name" class="form-control" id="quizName" required >
+    </div>
+    <!--
+    <label for="quizName">Quiz name</label>
+        <input type="text" id="quizName" /> <br> -->
+    <!-- <label for="quizStartDateTime">Quiz starting date and time</label>
+    <input type="datetime-local" id="quizStartDateTime" /> <br> -->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" style="height: 38px;"><label for="quizStartDateTime">Quiz starting date and time :</label> </span>
+        </div>
+        <input type="datetime-local" placeholder="start time of the quiz" class="form-control" id="quizStartDateTime" required >
+    </div>
+    <!--   <label for="description">Quiz description</label>
+      <input type="text" id="description" /><br> -->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" style="height: 38px;"><label for="description"> Quiz description :</label> </span>
+        </div>
+        <input type="text" placeholder="Description of the quiz" class="form-control" id="description" required >
+    </div>
+    <!--  <label for="totalPoint">Total points</label>
+     <input type="number" id="totalPoint"><br> -->
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" style="height: 38px;"><label for="duration"> Quiz Duration :</label> </span>
+        </div>
+        <input type="number" placeholder="Duration in minute" class="form-control" id="duration" required >
+    </div>
+
+    <button class="btn btn-success" id="submit" onclick="send()" style="margin-left: 45%; margin-right: 55%;">Submit</button><br>
+
+    <div id="div1" style="justify-content: center; align-items: center; width: 100%">
+
+    </div>
+
+    <div id="logout-modal" class="modal" style="align-content: center;" >
+        <div class="modal-content animate" style="width: 300px; align-content: center;">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('logout-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+            </div>
+            <div class="wrapper" style="width:70%;height:70%;margin: 15px;padding: 30px;border-radius:5px;overflow: hidden;">
+                <div class="title-text" style="display: flex;width: 200%">
+                    <div class="title login" style="width: 50%;font-size:35px;font-weight: 600;text-align: center;">Logout</div>
+                    <hr>
+                </div>
+                <br>
+                <div class="form-container" style="width: 100%;overflow: hidden; align-content: center;">
+                    <div class="form-inner" style="display: flex;width: 200%;">
+                        <form action="/logout" method="post" class="login" id="login" style="width:50%; align-content: center;">
+                            <h2 style="color: red; text-align: center;">Are You Sure ? </h2><br>
+                            <button class='xbutg' onclick="document.getElementById('logout-modal').style.display='none'" style='width:200px;
+								align-content: center;' type='button' >NO</button>
+                            <button class='xbutn' style='width:200px; text-align: center;' type='submit'>YES</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function send() {
+            const data = {};
+            data['name'] = $("#quizName").val();
+            data['time'] = $("#quizStartDateTime").val();
+            data['description'] = $("#description").val();
+            data['duration'] = $("#duration").val();
+
+            console.log(data)
+
+            $.ajax({
+                url: "http://localhost:8082/createquizform",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(data),
+                success:function(data) {
+                    let quizlink = data['link'];
+
+                    $("#div1").append("<a href='"+ quizlink + "'>Click to get Quiz</a>");
+                    $("#submit").css("display","none");
+
+                    swal("Quiz Created Successfully!!","", "success");
+
+                }
+            })
+        }
+
+        function logout() {
+            $("#logout-modal").css('display','block');
+        }
+
+    </script>
+
+</body>
+</html>

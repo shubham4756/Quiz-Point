@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Quiz</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.2/sockjs.min.js" integrity="sha512-2hPuJOZB0q6Eu4RlRRL2/8/MZ+IoSSxgDUu+eIUNzHOoHLUwf2xvrMFN4se9mu0qCgxIjHum6jdGk/uMiQoMpQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <script type="text/javascript" th:inline="javascript">
+
+
+
+            // store number of questions
+            let rightcount = 1;
+
+            // will store quiz id
+            const quizId = [[${quizId}]];
+
+            // Store quizquestion ID
+            const questionsIds = [[${questionIds}]];
+
+            // no need of changing never using after first time
+            const isMarked = [[${isMarked}]];
+
+            rightcount = questionsIds.length + 1;
+            console.log('rightcount is ' + rightcount);
+            console.log(questionsIds);
+            console.log(isMarked);
+
+
+        </script>
+
+
+
+</head>
+
+
+<style type="text/css">
+    .modal-title {
+
+    }
+    html
+    {
+        scroll-behavior: smooth;
+        height: 100%;
+    }
+    body
+    {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .left
+    {
+        float: left;
+        width: 160px;
+        margin-left: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
+
+    .right
+    {
+        float: left;
+        margin-top: 5px;
+        padding-bottom: 30px;
+    }
+
+    .z
+    {
+
+        z-index:1;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: 80px;
+        box-shadow: 0px 10px 10px -10px #000000;
+        outline: none;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        background-image: none;
+        padding-bottom: 30px;
+    }
+    .y
+    {
+        text-decoration: none;
+        color: black;
+        margin-left: 5px;
+        padding-bottom: 30px;
+    }
+    .y:hover
+    {   text-decoration: none;
+        color: black;}
+    .d1
+    {
+        float: left;
+        margin-left: 48px;
+        padding-bottom: 30px;
+    }
+    .jumbotron {
+        margin: 15px;
+        height: 1000px;
+    }
+    .display-4 {
+        text-align: center;
+        margin-top: -35px;
+    }
+    .g
+    {
+        float: right;
+        margin-right: 120px;
+        margin-bottom: 25px;
+        margin-top: -8px;
+
+    }
+    .modal-title {
+        text-align: center;
+    }
+    .dd {
+
+        padding: 10px;
+    }
+    .mmm {
+
+    }
+
+
+    .x71
+    {
+        background-color:rgb(153, 204, 255);
+        color: white;
+        padding: 8px 18px;
+        margin: 8px 0;
+        margin-bottom: 20px;
+        border: none;
+        cursor: pointer;
+        width: auto;
+        border-radius: 2px;
+    }
+    #ii1 , #ii2, #ii3 {
+        align-self: center;
+        display: inline-block;
+    }
+    .oo1 {
+        display: inline-block;
+    }
+    .hi {
+        display: inline-block;
+    }
+
+    #xx1, #qqpoints {
+        display: inline-block;
+    }
+    .xbutn {
+        background-color:red;
+        text-align: center;
+        color: white;
+        padding: 8px 18px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: auto;
+        border-radius: 2px;
+    }
+    .aa1 {
+        margin-bottom: 10px;
+    }
+    .ppp {
+        padding: 0px;
+    }
+    .xbutg {
+        background-color:green;
+        color: white;
+        text-align: center;
+        padding: 8px 18px;
+        margin: 20px 0;
+        border: none;
+        cursor: pointer;
+        border-radius: 2px;
+    }
+    .input-group-prepend {
+        display: inline-block;
+    }
+
+    .x71:hover
+    {
+        opacity: 0.8;
+    }
+    .lll {
+
+    }
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+    }
+    .bg
+    {
+        width: 100%;
+        height: 630px;
+        background-image: url("https://images.pexels.com/photos/374857/pexels-photo-374857.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size:cover;
+    }
+</style>
+
+<body style="height: 100%;">
+
+<input type="hidden" th:value="${quizId}" id="quizId"/>
+<input type="hidden" th:value="${userId}" id="userId"/>
+<input type="hidden" id="questionId">
+<input type="hidden" id="questionType">
+
+
+<div style="width:100%; height: 100%; background-color: yellow; border-radius: 3px;" class="ppp">
+    <div style="width: 70%; height: 100%; float: left; padding: 30px; background: white; overflow: auto; overflow-wrap: break-word;" class="lll">
+        <div class="alert alert-dark" role="alert" style="height: auto; width: 30%; margin: 10px auto; ">
+            <h4 style="text-align: center;" th:text="${quizName}"></h4>
+        </div>
+        <span id="qno" class="input-group-text" style="width: 250px;">Question Number : 1</span>
+        <span id="qpoints" class="input-group-text aa" style="width: 250px; float: right;">Points : 10</span><br><br>
+        <div id="TopicOfMCQ">
+            <div id="qbodyMCQ" style="height: auto; background-color: white; padding: 10px; border-color: black; border-radius: 5px; border-width: 2px; border-style: solid;">
+                <p id="qMCQ">
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                </p>
+            </div><br>
+            <div id="addoptMCQ">
+
+            </div><br>
+        </div>
+
+        <div id="TopicOfTF">
+            <div id="qbodyTF" style="height: auto; background-color: white; padding: 10px; border-color: black; border-radius: 5px; border-width: 2px; border-style: solid;">
+                <p id="qTF">
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                </p>
+            </div><br>
+            <div id="addoptTF">
+
+            </div><br>
+
+
+            <!--
+                            <label>Write Question: </label><br>
+                            <input type="text" id="qqT"><br><br>
+                            <label>Correct Option (true/false) :</label> <br>
+                            <input type="text" id="CorrectT"><br><br> -->
+        </div>
+
+        <div id="TopicOfMULTI">
+            <div id="qbodyMULTI" style="height: auto; background-color: white; padding: 10px; border-color: black; border-radius: 5px; border-width: 2px; border-style: solid;">
+                <p id="qMULTI">
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                </p>
+            </div><br>
+            <div id="addoptMULTI">
+
+            </div><br>
+
+        </div>
+
+        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="return setAnswer()" style="width: 300px; margin-bottom: -5px;" id="ii1">Save</button>
+        <button type="submit" class="btn btn-secondary btn-lg btn-block" onclick="return clearOption()" style="width: 300px; margin-left: 30px;" id="ii2" >Clear option</button>
+
+        <a type="button" th:href="${'/user/attendedquizzes'}" class="btn btn-primary btn-lg btn-block" style="width: 300px; margin-left: 30px;" id="ii3">End Quiz</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div style="width: 30%; height: 100%; background: burlywood; overflow: auto; padding: 30px;  " class="mmm">
+
+        <div style="width: 100%; height: 10%; background: #2ecc71">
+            <div style="width: 40%; height: 100%; background-color: white; float: left;">
+                <button class="btn btn-primary" style="width: 100%; height: 100%;" data-toggle="modal" data-target="#exampleModal" id="btnMessage">Message</button>
+            </div>
+            <div style="width: 60%; height: 100%; background-color: lightgreen; float: right;">
+                <h4 style="margin-top: 20px; text-align: center;"><b> <p id="timer"></p> </b> </h4>
+            </div>
+
+        </div>
+
+        <div id="rightDiv" style="width: 100%; height: 90%; background: #f5f5dc" >
+
+        </div>
+    </div>
+</div>
+
+<div id="messageBox" style="width: 30%; height: 30%; background-color: #FFEA00; border-width: 3px; border-color: black; display: none; position: absolute; bottom: 30px; right: 20px;">
+    <div class="alert alert-dark" role="alert" style="height: 40px; width: 40%; margin: 0 auto;">
+        <h6 style="text-align: center; margin-top: -3px; ">Message</h6>
+    </div>
+    <div style=" width: 100%; height: auto; padding: 10px;">
+        <p style="color: red;" id="messageAlert">54656</p>
+    </div>
+</div>
+
+<!-- IT IS THE MODAL CODE FROM WHICH WE WILL SHOW MASSAGE TO THE USER FROM THE QUIZ CREATOR -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="allMessagesModal">Here Comes the Message Body</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+    var mcq=false,tf=false,multi=true;
+
+    $("#TopicOfMCQ").css('display','none');
+    $("#TopicOfTF").css('display','none');
+    $("#TopicOfMULTI").css('display','none');
+    let numberOfMCqs = 0;
+    let numberOfTf = 0;
+    let numberOfMulti = 0;
+
+    function clearOption() {
+        let type = $('#questionType').val();
+        if(type === "1") {
+            $('input[name=ip1]').attr('checked',false);
+        } else if (type === "2") {
+            $('input[name=ip2]').attr('checked',false);
+        } else if (type === "3") {
+            $('input[name=ip3]').attr('checked',false);
+        } else {
+            // do nothing just it five star
+        }
+    }
+
+    function funMcq(questionBody, options, userAns) {
+
+        $("#qMCQ").text(questionBody);
+        var numberOfOptions=options.length;
+        numberOfMCqs = numberOfOptions;
+        $("#addoptMCQ").html('');
+        for(var i=1;i<=numberOfOptions;i++) {
+            var ll= options[i-1];
+
+            var tt="<div style='margin-bottom:10px;'><div class='input-group-prepend' style='float: left;''>"+"<div class='input-group-text' style='height: 38px;'>"+
+                "<input type='radio' aria-label='Radio button for following text input' name='ip1' id='optM"+i+"'>"+"</div></div><input type='text' style='width:950px;' class='form-control' disabled='true' value='"+ ll  +"'/></div>";
+            $("#addoptMCQ").append(tt);
+        }
+        $('input[name=ip1]').attr('checked',false);
+
+        if(userAns !== "-1") {
+            $('#optM' + (userAns)).attr('checked', 'true');
+        }
+
+        $('#TopicOfMULTI').css('display', 'none');
+        $('#TopicOfTF').css('display', 'none');
+        $("#TopicOfMCQ").css('display','block');
+    }
+
+    function  funTF(questionBody, options, userAns) {
+        $("#qTF").text(questionBody);
+        var numberOfOptions=options.length;
+        numberOfTf = numberOfOptions;
+        $("#addoptTF").html('');
+        for(var i=1;i<=numberOfOptions;i++) {
+            var ll=options[i-1];
+            var tt="<div style='margin-bottom:10px;'><div class='input-group-prepend' style='float: left;''>"+"<div class='input-group-text' style='height: 38px;'>"+
+                "<input type='radio' aria-label='Radio button for following text input' name='ip2' id='optTF"+i+"'>"+"</div></div><input type='text' style='width:950px;' class='form-control' disabled='true' value='"+ ll  +"'/></div>";
+            $("#addoptTF").append(tt);
+        }
+        $('input[name=ip2]').attr('checked',false);
+
+        if(userAns !== "-1") {
+            $('#optTF' + (userAns)).attr('checked', 'true');
+        }
+
+        $('#TopicOfMULTI').css('display', 'none');
+        $('#TopicOfMCQ').css('display', 'none');
+        $("#TopicOfTF").css('display','block');
+    }
+
+    function funMulti(questionBody, options, userAns) {
+        $("#qMULTI").text(questionBody);
+        var numberOfOptions=options.length;
+        numberOfMulti = numberOfOptions;
+        $("#addoptMULTI").html('');
+        for(var i=1;i<=numberOfOptions;i++) {
+            var ll= options[i-1];
+            var tt="<div style='margin-bottom:10px;'><div class='input-group-prepend' style='float: left;''>"+"<div class='input-group-text' style='height: 38px;'>"+
+                "<input type='checkbox' aria-label='Radio button for following text input' name='ip3' id='optMULTI"+i+"'>"+"</div></div><input type='text' style='width:950px;' class='form-control' disabled='true' value='"+ ll  +"'/></div>";
+            $("#addoptMULTI").append(tt);
+        }
+        $('input[name=ip3]').attr('checked',false);
+
+        if(userAns !== '-1') {
+            let anss = userAns.split(' ');
+            for(let k = 0; k <anss.length; k++) {
+                $('#optMULTI' + (anss[k])).attr('checked', 'true');
+            }
+        }
+
+        $('#TopicOfMCQ').css('display', 'none');
+        $("#TopicOfTF").css('display','none');
+        $("#TopicOfMULTI").css('display','block');
+    }
+
+    for(let i = 1 ; i < rightcount; i++ ) {
+
+        let btnClass = "";
+        if(isMarked[i-1] === true) {
+            btnClass = "btn btn-primary hi";
+        } else {
+            btnClass = "btn btn-danger hi";
+        }
+
+        let bb = $('<input/>').attr({
+            class : btnClass,
+            type : 'button',
+            id : i,
+            value : i,
+            onclick : 'print("' + questionsIds[i - 1]+ '", '+i+')'
+        });
+        bb.css('width',"20%");
+        $("#rightDiv").append(bb);
+        $(("#").concat(i)).css('margin-left','4.5%');
+        $(("#").concat(i)).css('margin-top','10px');
+        $(("#").concat(i)).css('display','inline-block');
+
+    }
+
+    if(rightcount !== 1) {
+        print(questionsIds[0], 1);
+    } else {
+        console.log('No question');
+    }
+
+    function print(id, value) {
+        console.log(id + " " + value);
+        getQuestionById(id, value);
+    }
+
+    function getQuestionById(questionId, value) {
+        let userIdObject = {};
+        userIdObject['type'] = 2;
+        userIdObject['userId'] = $('#userId').val();
+        $.ajax({
+            url: "http://localhost:8082/question/" + questionId,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(userIdObject),
+            dataType: "json",
+            success:function(data) {
+
+                console.log('VAlUE IS' + value);
+                $('#qno').text("Question Number : " + value);
+                $('#qpoints').text("Points : " + data.points);
+                $('#questionId').val(data.questionId);
+                console.log(data.points);
+
+                let questionBody = data.questionContent;
+                let options = data.options;
+                $('#questionType').val(data.type);
+
+                let userAns = data.correctAnswer;
+
+                if (data.type === "1") {
+                    funMcq(questionBody, options, userAns);
+                } else if (data.type === "2") {
+                    funTF(questionBody, options, userAns);
+                } else if (data.type === "3") {
+                    funMulti(questionBody, options, userAns);
+                } else {
+                    // do nothing just eat 5 star
+                }
+
+            }
+        });
+    }
+
+    function setAnswer() {
+
+        console.log('set answer called');
+
+        let type = $('#questionType').val();
+        let questionId = $('#questionId').val();
+        let userId = $('#userId').val();
+
+
+
+        let checkedAns = "-1";
+        if(type === "1") {
+
+            for(let i = 1; i<= numberOfMCqs; i++) {
+                if($('#optM' + i).is(":checked")) {
+                    checkedAns = i + "";
+                }
+            }
+
+        } else if (type === "2") {
+
+            for(let i = 1; i<= numberOfTf; i++) {
+                if($('#optTF' + i).is(":checked")) {
+                    checkedAns = i + "";
+                }
+            }
+
+        } else if (type === "3") {
+
+            for(let i = 1; i<= numberOfMulti; i++) {
+                if($('#optMULTI' + i).is(":checked")) {
+                    if(checkedAns === "-1") {
+                        checkedAns = i + "";
+                    } else {
+                        checkedAns += " " + i;
+                    }
+                }
+            }
+        }
+
+        let questionNo = $('#qno').text().substr(18);
+
+        let btnClass = "";
+
+        // change navigation color button
+        if(checkedAns === "-1") {
+            isMarked[questionNo - 1] = false;
+            btnClass = "btn btn-danger hi";
+        } else {
+            isMarked[questionNo - 1] = true;
+            btnClass = "btn btn-primary hi";
+        }
+
+        $('#' + questionNo).attr('class', btnClass);
+        sendToServer(questionId, userId, checkedAns);
+    }
+
+    function sendToServer(questionId, userId, checkedAns) {
+        let objectToSend = {};
+        objectToSend['questionId'] = questionId;
+        objectToSend['userId'] = userId;
+        objectToSend['ans'] = checkedAns;
+
+        let quizId = $('#quizId').val();
+
+        console.log(objectToSend);
+
+        $.ajax({
+            url: "http://localhost:8082/quiz/" + quizId + "/answer",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(objectToSend),
+            dataType: "json",
+            success:function(data) {
+                console.log(data);
+            }
+        });
+
+    }
+
+    let remainingTime = [[${remainingTime}]];
+    console.log(remainingTime);
+
+    let x = setInterval(function() {
+        let min = Math.floor(remainingTime/60);
+        let sec = remainingTime%60;
+        document.getElementById("timer").innerHTML = min + " min: " + sec +" sec"
+
+        if (remainingTime < 0) {
+            clearInterval(x);
+            location.reload();
+        }
+        remainingTime--;
+    }, 1000);
+
+
+</script>
+
+<script>
+
+    let stompClient = null;
+    let currentSubscription = null;
+    let topic = null;
+
+    function connect() {
+        let socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, enterRoom, onError);
+    }
+
+    function enterRoom() {
+        topic = `/app/chat/${quizId}`;
+
+        if (currentSubscription) {
+            currentSubscription.unsubscribe();
+        }
+        console.log(topic);
+        currentSubscription = stompClient.subscribe(`/channel/${quizId}`, onMessageReceived);
+    }
+
+    function onMessageReceived(payload) {
+        console.log('message received reciver');
+        console.log(payload);
+        console.log(payload.body);
+        let message = JSON.parse(payload.body);
+        console.log('message is ' + message);
+        $('#btnMessage').css('background', 'red');
+        $('#messageAlert').text(message['content']);
+        $('#messageBox').css('display', 'block');
+        $('#messageBox').show().delay(10000).fadeOut()
+    }
+
+    function sendMessage() {
+    }
+
+    function onError(error) {
+        console.log('Could not connect !!!');
+    }
+
+    $(document).ready(function() {
+        connect();
+
+        $('#exampleModal').on("show.bs.modal", function() {
+            $.ajax({
+                url: "http://localhost:8082/quiz/" + quizId + "/allMessages",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                success:function(data) {
+                    $('#btnMessage').css('background', 'blue');
+                    console.log(data);
+                    data = data.reverse();
+
+                    let datas = "";
+
+                    for(let i = 0; i<data.length;i++) {
+                        let date = new Date(data[i].messageTime);
+                        let date2 = new Date();
+
+                        let duration = Math.floor((date2.getTime() - date.getTime())/1000);
+                        console.log("durations " +  duration);
+                        let message = "";
+                        if(duration > 24*3600 ) {
+                            message = Math.floor(duration/(24*3600)) + " days ago: ";
+                        } else {
+                            message = Math.floor(duration/60) + " mins ago: ";
+                        }
+
+                        message += data[i].messageBody;
+
+                        datas += "<p>"+ message + "</p>";
+                    }
+
+                    $('#allMessagesModal').html(datas);
+                }
+            });
+        });
+    });
+
+</script>
+
+
+
+<!--    <script type="text/javascript" th:inline="javascript">-->
+<!--        for(let i = 1 ; i < rightcount; i++ ) {-->
+
+<!--            let btnClass = "";-->
+<!--            if(correctAnswers[i-1] === true) {-->
+<!--                btnClass = "btn btn-primary hi";-->
+<!--            } else {-->
+<!--                btnClass = "btn btn-danger hi";-->
+<!--            }-->
+
+<!--            let bb = $('<input/>').attr({-->
+<!--                class : btnClass,-->
+<!--                type : 'button',-->
+<!--                id : i,-->
+<!--                value : i,-->
+<!--                onclick : 'print("' + questionsId[i - 1]+ '", '+i+')'-->
+<!--            });-->
+<!--            bb.css('width',"20%");-->
+<!--            $("#rightDiv").append(bb);-->
+<!--            $(("#").concat(i)).css('margin-left','5%');-->
+<!--            $(("#").concat(i)).css('margin-bottom','5px');-->
+<!--            $(("#").concat(i)).css('display','inline-block');-->
+
+<!--        }-->
+
+<!--        if(rightcount !== 1) {-->
+<!--            if(rightcount !== 1) {-->
+<!--                getQuestionById(questionsId[0], 1);-->
+<!--            } else {-->
+<!--                console.log("No question");-->
+<!--            }-->
+<!--        }-->
+
+<!--        function print(id, value) {-->
+<!--            console.log(id);-->
+<!--            getQuestionById(id, value);-->
+<!--        }-->
+
+<!--        function getQuestionById(questionId, value) {-->
+<!--            let ans = {};-->
+<!--            $.ajax({-->
+<!--                url: "http://localhost:8082/question/" + questionId,-->
+<!--                type: "POST",-->
+<!--                contentType: "application/json",-->
+<!--                dataType: "json",-->
+<!--                success:function(data) {-->
+<!--                    ans = data;-->
+<!--                    clear();-->
+<!--                    if (data.type === "1") {-->
+<!--                        console.log('VAlUE IS' + value);-->
+<!--                        $('#qno').text("Question Number : " + value);-->
+<!--                        funMCQ();-->
+
+<!--                        // Just for better user experience-->
+<!--                        $('#ii1').text('Update');-->
+
+<!--                        $('#QuestionIdForUpdate').val(data.questionId);-->
+
+<!--                        console.log(data.points);-->
+
+<!--                        $('#qqpoints').val(data.points);-->
+<!--                        $('#qqM').val(data.questionContent);-->
+
+<!--                        let options = data.options;-->
+<!--                        let numberOfOptions = options.length;-->
+
+<!--                        for(let p = 1; p < numberOfOptions; p++) {-->
+<!--                            addOption();-->
+<!--                        }-->
+
+<!--                        for(let p = 1; p<=numberOfOptions; p++) {-->
+<!--                            $('#IDOP' + p).val(options[p-1]);-->
+<!--                        }-->
+
+<!--                        let correctAnswer = data.correctAnswer;-->
+<!--                        if(correctAnswer !== '-1') {-->
+<!--                            $('#radioAns' + (correctAnswer)).attr('checked', 'true');-->
+<!--                        }-->
+<!--                    } else if (data.type === "2") {-->
+
+
+<!--                        console.log('VAlUE IS' + value);-->
+<!--                        $('#qno').text("Question Number : " + value);-->
+<!--                        funTF();-->
+
+<!--                        // Just for better user experience-->
+<!--                        $('#ii1').text('Update');-->
+
+<!--                        $('#QuestionIdForUpdate').val(data.questionId);-->
+
+<!--                        console.log(data.points);-->
+
+<!--                        $('#qqpoints').val(data.points);-->
+<!--                        $('#qqT').val(data.questionContent);-->
+
+<!--                        let options = data.options;-->
+<!--                        let numberOfOptions = options.length;-->
+
+<!--                        for(let p = 1; p<=numberOfOptions; p++) {-->
+<!--                            $('#tfOption' + p).val(options[p-1]);-->
+<!--                        }-->
+
+<!--                        let correctAnswer = data.correctAnswer;-->
+<!--                        if(correctAnswer !== '-1') {-->
+<!--                            $('#tfOption' + (correctAnswer)).attr('checked', 'true');-->
+<!--                        }-->
+
+
+<!--                    } else if (data.type === "3") {-->
+<!--                        console.log('VAlUE IS' + value);-->
+<!--                        $('#qno').text("Question Number : " + value);-->
+<!--                        funShort();-->
+
+<!--                        // Just for better user experience-->
+<!--                        $('#ii1').text('Update');-->
+
+<!--                        $('#QuestionIdForUpdate').val(data.questionId);-->
+
+<!--                        console.log(data.points);-->
+
+<!--                        $('#qqpoints').val(data.points);-->
+<!--                        $('#qqS').val(data.questionContent);-->
+
+<!--                        let options = data.options;-->
+<!--                        let numberOfOptions = options.length;-->
+
+<!--                        for(let p = 1; p < numberOfOptions; p++) {-->
+<!--                            addOptionShort();-->
+<!--                        }-->
+
+<!--                        for(let p = 1; p<=numberOfOptions; p++) {-->
+<!--                            $('#IDOPShort' + p).val(options[p-1]);-->
+<!--                        }-->
+
+<!--                        let correctAnswer = data.correctAnswer;-->
+<!--                        if(correctAnswer !== '-1') {-->
+<!--                            let anss = correctAnswer.split(' ');-->
+<!--                            for(let k = 0; k <anss.length; k++) {-->
+<!--                                $('#checkbox' + (anss[k])).attr('checked', 'true');-->
+<!--                            }-->
+<!--                        }-->
+<!--                    } else {-->
+<!--                        // do nothing just eat 5 star-->
+<!--                    }-->
+
+<!--                }-->
+<!--            })-->
+<!--            return ans;-->
+<!--        }-->
+
+<!--    </script>-->
+</body>
+</html>

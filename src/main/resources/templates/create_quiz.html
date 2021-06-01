@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+	<title>Quiz</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script type="text/javascript" th:inline="javascript">
+		// const taest = [[${quizId}]];
+		// console.log(taest + " Printed");
+		//
+		// let list = [[${list}]];
+		//
+		// console.log(list.length);
+		//
+		// for(let p = 0 ; p < list.length ; p++) {
+		// 	console.log(list[p]);
+		// }
+
+		let noBtn = 1;
+		let noBtnShort = 1;
+		let rightcount = 1;
+
+		const questionsId = [[${questionIds}]];
+
+		// no need of changing never using after first time
+		const correctAnswers = [[${correctAnswers}]];
+
+		rightcount = questionsId.length + 1;
+		console.log('rightcount is ' + rightcount);
+		console.log(questionsId);
+		console.log(correctAnswers);
+
+
+	</script>
+
+</head>
+
+
+<style type="text/css">
+	.modal-title {
+
+	}
+	html
+	{
+		scroll-behavior: smooth;
+		height: 100%;
+	}
+	body
+	{
+		font-family: Arial, Helvetica, sans-serif;
+		height: 100%;
+		overflow: hidden;
+	}
+	.left
+	{
+		float: left;
+		width: 160px;
+		margin-left: 10px;
+		padding-bottom: 30px;
+		margin-bottom: 30px;
+	}
+
+	.right
+	{
+		float: left;
+		margin-top: 5px;
+		padding-bottom: 30px;
+	}
+
+	.z
+	{
+
+		z-index:1;
+		width: 100%;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		height: 80px;
+		box-shadow: 0px 10px 10px -10px #000000;
+		outline: none;
+		position: sticky;
+		top: 0;
+		background-color: white;
+		background-image: none;
+		padding-bottom: 30px;
+	}
+	.y
+	{
+		text-decoration: none;
+		color: black;
+		margin-left: 5px;
+		padding-bottom: 30px;
+	}
+	.y:hover
+	{   text-decoration: none;
+		color: black;}
+	.d1
+	{
+		float: left;
+		margin-left: 48px;
+		padding-bottom: 30px;
+	}
+	.jumbotron {
+		margin: 15px;
+		height: 1000px;
+	}
+	.display-4 {
+		text-align: center;
+		margin-top: -35px;
+	}
+	.g
+	{
+		float: right;
+		margin-right: 120px;
+		margin-bottom: 25px;
+		margin-top: -8px;
+
+	}
+	.modal-title {
+		text-align: center;
+	}
+	.dd {
+
+		padding: 10px;
+	}
+	.mmm {
+
+	}
+
+
+	.x71
+	{
+		background-color:rgb(153, 204, 255);
+		color: white;
+		padding: 8px 18px;
+		margin: 8px 0;
+		margin-bottom: 20px;
+		border: none;
+		cursor: pointer;
+		width: auto;
+		border-radius: 2px;
+	}
+	#ii1 , #ii2, #ii3 {
+		align-self: center;
+		display: inline-block;
+	}
+	.oo1 {
+		display: inline-block;
+	}
+	.hi {
+		display: inline-block;
+	}
+
+	#xx1, #qqpoints {
+		display: inline-block;
+	}
+	.xbutn {
+		background-color:red;
+		text-align: center;
+		color: white;
+		padding: 8px 18px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: auto;
+		border-radius: 2px;
+	}
+	.aa1 {
+		margin-bottom: 10px;
+	}
+	.ppp {
+		padding: 0px;
+	}
+	.xbutg {
+		background-color:green;
+		color: white;
+		text-align: center;
+		padding: 8px 18px;
+		margin: 20px 0;
+		border: none;
+		cursor: pointer;
+		border-radius: 2px;
+	}
+	.input-group-prepend {
+		display: inline-block;
+	}
+
+	.x71:hover
+	{
+		opacity: 0.8;
+	}
+	.lll {
+
+	}
+	.cancelbtn {
+		width: auto;
+		padding: 10px 18px;
+		background-color: #f44336;
+	}
+	.bg
+	{
+		width: 100%;
+		height: 630px;
+		background-image: url("https://images.pexels.com/photos/374857/pexels-photo-374857.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size:cover;
+	}
+
+</style>
+<body>
+
+<div class="z">
+	<div class="left">
+		<a th:href="${'/'}"><img alt="logo" src="../static/logo.jpeg" style="size: 12px"></a>
+	</div>
+	<div class="d1">
+		<img src="https://img.icons8.com/fluent/2x/book.png" style="width:25px;margin-left:15px;margin-top:4px">
+	</div>
+	<div class="right">
+		<a href="/dashboard" class="y">Dashboard</a>
+	</div>
+	<div class="d1">
+		<img src="https://img.icons8.com/dusk/2x/add-property.png" style="width:25px;margin-left:15px;margin-top:4px">
+	</div>
+	<div class="right">
+		<a href="/createquizform" class="y">Create Quiz</a>
+	</div>
+	<div class="d1">
+		<img style="width: 20px;margin-top: 9px" src="https://img.icons8.com/color/2x/about.png">
+	</div>
+	<div class="right">
+		<a href="/#ab" class="y"  >About us</a>
+	</div>
+	<div class="d1">
+		<img src="https://img.icons8.com/color/2x/user-group-skin-type-7.png" style="width:35px;margin-left:15px">
+	</div>
+	<div class="right">
+		<a href="/#dev" class="y">Team</a>
+	</div>
+	<div class="d1">
+		<img src="https://img.icons8.com/ultraviolet/2x/add-contact-to-company.png" style="width:25px;margin-left:15px;margin-top:4px">
+	</div>
+	<div class="right">
+		<a href="/#contact" class="y">Contact us</a>
+	</div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title" id="exampleModalLongTitle">Login Form</h2>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<input type="hidden" th:value="${quizId}" id="quizId"/>
+
+
+
+<div style="width:auto; background-color: #e9ecef; border-radius: 3px;" clas="ppp">
+	<div style="width: 72%; height: 650px; float: left; padding: 30px; background: white; overflow: auto; margin-left: -130px; " class="lll">
+		<div class="alert alert-dark" role="alert" style="height: 45px; width: 300px; margin: 0 auto; ">
+			<h4 style="text-align: center; margin-top: -5px;">Create Quiz</h4>
+		</div>
+		<h3 id="qno">Question Number : 1</h3>
+		<input type="hidden" id="QuestionIdForUpdate" value="-1"/>
+		<hr>
+		<form onSubmit="return handleSubmit()" id="form">
+			<div id="qtype">
+				<h4>Select the Type Of Question : </h4>
+
+				<div class="input-group mb-3" style="float: right; width: 150px; margin-right: 80px;">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="xx1">Points: </span>
+					</div>
+					<input type="text" class="form-control" placeholder="Points" aria-label="Points" aria-describedby="basic-addon1" id="qqpoints" style="width: 6px; float: right;">
+				</div>
+
+
+				<div class="oo1">
+					<!-- <div class="input-group" > -->
+					<div class="input-group-prepend" style="float: left; ">
+						<div class="input-group-text" id="ig1" style="height: 38px;">
+							<input type="radio" aria-label="Radio button for following text input" name="ip" id="rr1" value="mcq-type">
+						</div>
+					</div>
+					<input type="text" class="form-control" id="ig2" aria-label="Text input with radio button" disabled="true" onclick="return funMCQ()" value="mcq-type" style="width: 200px;"/>
+					<!-- </div> -->
+				</div>
+
+				<div class="oo1">
+					<!-- <div class="input-group" > -->
+					<div class="input-group-prepend" style="float: left;">
+						<div class="input-group-text" style="height: 38px;">
+							<input type="radio" aria-label="Radio button for following text input" id="rr2" name="ip" value="true-false" >
+						</div>
+					</div>
+					<input type="text" class="form-control" aria-label="Text input with radio button" onclick="return funTF()" disabled="true" value="true-false" style="width: 200px;"/>
+					<!-- </div> -->
+				</div>
+
+				<div class="oo1">
+					<!-- <div class="input-group" > -->
+					<div class="input-group-prepend" style="float: left;">
+						<div class="input-group-text" style="height: 38px;">
+							<input type="radio" aria-label="Radio button for following text input" id="rr3" name="ip" value="Multiple-Ans">
+						</div>
+					</div>
+					<input type="text" class="form-control" aria-label="Text input with radio button" onclick="return funShort()" disabled="true" value="Multiple-Ans" style="width: 200px;"/>
+					<!-- </div> -->
+				</div>
+				<br>
+				<!--  <input type="radio" name="ip" value="mcq-type" />mcq-type<br />
+                 <input type="radio" name="ip" value="true-false" />true-false<br>
+                 <input type="radio" name="ip" value="short-ans" />short-ans<br /> -->
+				<br>
+			</div>
+			<div id="TopicOfMCQ">
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Write Question : </span>
+					</div>
+					<input type="text" class="form-control" placeholder="Question" aria-label="Username" aria-describedby="basic-addon1" id="qqM">
+				</div><br>
+
+				<div id="addBtn">
+
+				</div>
+
+
+
+
+
+				<!--   <label>Write Question: </label><br>
+
+                  <input type="text" id="qqM"><br><br> -->
+				<button type="button" class="btn btn-dark" id="opbtn">Add Option</button>
+				<!--  <button id="opbtn">Add Option</button> -->
+				<br>
+
+				<br>
+				<br>
+				<br><br>
+
+				<!--  <label>Correct Option :</label> <br>
+                 <input type="text" id="CorrectM"><br><br>
+
+                 <br /><br> -->
+			</div>
+			<div id="TopicOfTF">
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Write Question : </span>
+					</div>
+					<input type="text" class="form-control" placeholder="Question" aria-label="Username" aria-describedby="basic-addon1" id="qqT">
+				</div>
+				<!-- for making radio button for true false-->
+				<div class="radiodis">
+					<div class='input-group mb-3' style="width: 160px;">
+						<div class='input-group-prepend'>
+							<div class='input-group-text' style='height : 38px;'>
+								<input type='radio' value='True' id="tfOption1" name='truefalse' aria-label='True'>
+							</div>
+						</div>
+						<input disabled='true' type='text' value='True' class='form-control' aria-label='Text input with checkbox' >
+					</div>
+				</div>
+				<div class="radiodis">
+					<div class='input-group mb-3' style="width: 160px;">
+						<div class='input-group-prepend'>
+							<div class='input-group-text' style='height : 38px;'>
+								<input type='radio' value='False' id="tfOption2" name='truefalse' aria-label='False'>
+							</div>
+						</div>
+						<input disabled='true' type='text' value='False' class='form-control' aria-label='Text input with checkbox' >
+					</div>
+				</div>
+
+
+
+				<!--
+                                <label>Write Question: </label><br>
+                                <input type="text" id="qqT"><br><br>
+                                <label>Correct Option (true/false) :</label> <br>
+                                <input type="text" id="CorrectT"><br><br> -->
+			</div>
+			<div id="TopicOfShort">
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Write Question : </span>
+					</div>
+					<input type="text" class="form-control" placeholder="Question" aria-label="Username" aria-describedby="basic-addon1" id="qqS">
+				</div>
+
+
+
+				<div id="addBtnShort">
+
+				</div>
+				<button type="button" class="btn btn-dark" id="opbtnShort">Add Option</button>
+				<br>
+				<br>
+				<br>
+				<br><br>
+
+			</div>
+
+			<button type="button" class="btn btn-primary btn-lg btn-block" onclick="return SubmitQuestion()" style="width: 300px; margin-bottom: -5px;" id="ii1">Save</button>
+			<button type="submit" class="btn btn-secondary btn-lg btn-block" onclick="return AddQuestion()" style="width: 300px; margin-left: 30px;" id="ii2" >Add question</button>
+
+			<a type="button" th:href="${'/user/createdquizzes'}" class="btn btn-primary btn-lg btn-block" style="width: 300px; margin-left: 30px;" id="ii3">Save Quiz</a>
+
+			<!--      <button type="submit">Stop Adding Questions</button>
+                 <button onclick="return AddQuestion()" style="float: right;">AddQuestion</button> -->
+		</form>
+	</div>
+	<div style="margin-left: 74%; height: 700px; background: #e9ecef; overflow: auto; padding: 30px;  " class="mmm">
+		<div id="rightDiv" >
+
+
+		</div>
+	</div>
+</div>
+
+<script>
+
+	var event = new CustomEvent("change", {});
+
+	for(let i = 1 ; i < rightcount; i++ ) {
+
+		let btnClass = "";
+		if(correctAnswers[i-1] === true) {
+			btnClass = "btn btn-primary hi";
+		} else {
+			btnClass = "btn btn-danger hi";
+		}
+
+		let bb = $('<input/>').attr({
+			class : btnClass,
+			type : 'button',
+			id : i,
+			value : i,
+			onclick : 'print("' + questionsId[i - 1]+ '", '+i+')'
+		});
+		bb.css('width',"20%");
+		$("#rightDiv").append(bb);
+		$(("#").concat(i)).css('margin-left','5%');
+		$(("#").concat(i)).css('margin-bottom','5px');
+		$(("#").concat(i)).css('display','inline-block');
+
+	}
+
+	if(rightcount !== 1) {
+		getQuestionById(questionsId[rightcount - 2], rightcount-1);
+	}
+
+	function print(id, value) {
+		console.log(id);
+		getQuestionById(id, value);
+	}
+
+	//***************************************************************************
+	$(".radiodis").css('display','inline-block');
+	$(".radiodis").css('margin-right','10px');
+
+	const quizId = $("#quizId").val();
+	console.log(quizId);
+
+	function funMCQ() {
+		$("#rr1").prop('checked',true);
+		opt_round_buttons[0].dispatchEvent(event);
+		return false;
+	}
+	function funTF() {
+		$("#rr2").prop('checked',true);
+		opt_round_buttons[1].dispatchEvent(event);
+		return false;
+	}
+	function funShort() {
+		$("#rr3").prop('checked',true);
+		opt_round_buttons[2].dispatchEvent(event);
+		return false;
+	}
+	//***************************************************************************
+
+
+	function addOptionShort() {
+		let divShort = $('<div>')
+				.attr({
+					id : ("divShort").concat(noBtnShort)
+				});
+		let ii = "idOPShort";
+		let idb = ii.concat(noBtnShort);
+		console.log(("Write Option").concat(noBtnShort));
+		let idspn = "sp".concat(noBtnShort);
+		let sp = $('<span/>').attr({
+			class : "input-group-text",
+			style: {
+				width: "150px",
+			}
+		});
+
+		sp.text("Write Option ");
+
+		divShort.append(sp);
+
+		divShort.append("<br>");
+
+		// $("#addBtn").append("<h3>Write Option</h3>");
+		var r=$('<input/>').attr({
+			type: "text",
+			class : "form-control " + ("IDOPShort").concat(noBtnShort),
+			placeholder : "Option",
+
+			// aria-label : "Small",
+			// aria-describedby : "inputGroup-sizing-sm",
+			id: ("IDOPShort").concat(noBtnShort)
+		});
+		r.css("width", "60%");
+		// r.css (float , left);
+		divShort.append(r);
+
+		//creating radio button for marking correct answer
+		var checkbx= "<div style='margin-left:5%;' class=' " + ("IDOPShort").concat(noBtnShort) + "'><div class='input-group mb-3'>"+"<div class='input-group-prepend'>" + "<div class='input-group-text' style='height : 38px;'>" + "<input type='checkbox' value=' " + "radShort" + noBtnShort + " ' id='checkbox" + noBtnShort + "' aria-label='Checkbox for following text input'>" + "</div>" + "</div>" + "<input disabled='true' type='text' value='Mark Correct' class='form-control' aria-label='Text input with checkbox' style='width:130px;'>" + "</div>" + "</div>";
+		divShort.append(checkbx);
+
+
+		console.log(noBtnShort)
+		if(noBtnShort !== 1) {
+			let remove = "<button class='btn btn-danger' style='margin-left:5%;' onclick='deleteOptionField(divShort" + noBtnShort + ")'>Delete this</button>"
+			divShort.append(remove);
+		}
+		divShort.append("<hr>");
+		divShort.append("<br>");
+		$("#addBtnShort").append(divShort);
+		var idid=(".IDOPShort").concat(noBtnShort);
+		$(idid).css('display','inline-block');
+		noBtnShort++;
+		return false;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	function addOption() {
+		let div = $('<div>')
+				.attr({
+					id : ("div").concat(noBtn)
+				});
+		let ii = "idOP";
+		let idb = ii.concat(noBtn);
+		console.log(("Write Option").concat(noBtn));
+		let idspn = "sp".concat(noBtn);
+		let sp = $('<span/>').attr({
+			class : "input-group-text",
+			id : idspn,
+			style: {
+				width: "150px",
+			}
+		});
+
+		sp.text("Write Option ");
+
+		div.append(sp);
+
+		div.append("<br>");
+
+		// $("#addBtn").append("<h3>Write Option</h3>");
+		var r=$('<input/>').attr({
+			type: "text",
+			class : "form-control " + ("IDOP").concat(noBtn),
+			placeholder : "Option",
+
+			// aria-label : "Small",
+			// aria-describedby : "inputGroup-sizing-sm",
+			id: ("IDOP").concat(noBtn)
+		});
+		r.css("width", "60%");
+		// r.css (float , left);
+		div.append(r);
+
+		//creating radio button for marking correct answer
+		var checkbx= "<div style='margin-left:5%;' class=' " + ("IDOP").concat(noBtn) + "'><div class='input-group mb-3'>"+"<div class='input-group-prepend'>" + "<div class='input-group-text' style='height : 38px;'>" + "<input type='radio' value=' " + "rad" + noBtn + " ' id='radioAns" + noBtn + "' name='same' aria-label='Checkbox for following text input'>" + "</div>" + "</div>" + "<input disabled='true' type='text' value='Mark Correct' class='form-control' aria-label='Text input with checkbox' style='width:130px;'>" + "</div>" + "</div>";
+		div.append(checkbx);
+
+
+		console.log(noBtn)
+		if(noBtn !== 1) {
+			let remove = "<button class='btn btn-danger' style='margin-left:5%;' onclick='deleteOptionField(div" + noBtn + ")'>Delete this</button>"
+			div.append(remove);
+		}
+		div.append("<hr>");
+		div.append("<br>");
+		$("#addBtn").append(div);
+		var idid=(".IDOP").concat(noBtn);
+		$(idid).css('display','inline-block');
+		noBtn++;
+		return false;
+	}
+	//***************************************************************************
+
+	$('#opbtn').on('click', addOption);
+	$('#opbtnShort').on('click', addOptionShort);
+
+
+	function deleteOptionField(str) {
+		console.log(str);
+		$(str).remove();
+	}
+	//***************************************************************************
+	document.getElementById('TopicOfMCQ').style.display = 'none';
+	document.getElementById('TopicOfTF').style.display = 'none';
+	document.getElementById('TopicOfShort').style.display = 'none';
+	let opt_round_buttons = document.getElementsByName('ip');
+
+	opt_round_buttons.forEach((rb) => rb.addEventListener('change', () => {
+		console.log(rb.value);
+		if (rb.value === 'mcq-type') {
+			document.getElementById('TopicOfMCQ').style.display = 'block';
+			document.getElementById('TopicOfTF').style.display = 'none';
+			document.getElementById('TopicOfShort').style.display = 'none';
+
+			if(noBtn === 1) {
+				addOption();
+			}
+		} else if(rb.value==='true-false') {
+			document.getElementById('TopicOfMCQ').style.display = 'none';
+			document.getElementById('TopicOfTF').style.display = 'block';
+			document.getElementById('TopicOfShort').style.display = 'none';
+		} else {
+			document.getElementById('TopicOfMCQ').style.display = 'none';
+			document.getElementById('TopicOfTF').style.display = 'none';
+			document.getElementById('TopicOfShort').style.display = 'block';
+
+			if(noBtnShort === 1) {
+				addOptionShort();
+			}
+		}
+	}));
+	//***************************************************************************
+	var arr = [];
+	var QuestionVar = {
+		QuestionType : -1,
+		QuestionBody : "",
+		OptionsArray : [],
+		AnswerBody : ""
+	};
+	//***************************************************************************
+	function handleSubmit() {
+		console.log("*********************");
+		arr.forEach(item => {
+			console.log(item.QuestionType);
+			console.log(item.QuestionBody);
+			console.log("op");
+			console.log(item.OptionsArray);
+			console.log(item.AnswerBody);
+			console.log("********************");
+		});
+		return false;
+	}
+
+	//*************************************************************************** Submit Question
+
+	//Updating question
+
+	function SubmitQuestion() {
+		let points = $("#qqpoints").val();
+
+		if (points == null) {
+			points = 0;
+		}
+
+		let xx=$("input[type='radio'][name='ip']:checked").val();
+
+		if(xx === "mcq-type") {
+
+			console.log("mcq");
+			QuestionVar.QuestionType=1;
+			console.log(QuestionVar.QuestionType);
+			QuestionVar.QuestionBody=$("#qqM").val();
+			console.log(QuestionVar.QuestionBody);
+			QuestionVar.OptionsArray = [];
+			QuestionVar.AnswerBody = "-1";
+			for(let ii=1;ii<noBtn;ii++) {
+				let t = $('#IDOP' + ii).val();
+				if(t !== undefined) {
+					QuestionVar.OptionsArray.push($(("#").concat("IDOP", ii)).val());
+					if ($('#radioAns' + ii).is(":checked")) {
+						QuestionVar.AnswerBody = QuestionVar.OptionsArray.length + "";
+					}
+
+				}
+			}
+			QuestionVar.Points = points;
+
+			let btnclass = "";
+
+			// here check removed or not
+
+			//Check user has answerd or not
+			if(QuestionVar.AnswerBody === "-1") btnclass="btn btn-danger hi";
+			else btnclass="btn btn-primary hi";
+
+			if($('#QuestionIdForUpdate').val() === '-1') {
+
+
+				// also add click listener so we can render it
+				var bb = $('<input/>').attr({
+					class : btnclass,
+					type : 'button',
+					id : rightcount,
+					value : (rightcount)
+				});
+				bb.css('width',"20%");
+				$("#rightDiv").append(bb);
+				$(("#").concat(rightcount)).css('margin-left','5%');
+				$(("#").concat(rightcount)).css('margin-bottom','5px');
+				$(("#").concat(rightcount)).css('display','inline-block');
+				// $("#rightDiv").append('<br>');
+				rightcount++;
+
+				// in response ask for the question id and set in question id
+
+				// also add the id to the current js id array
+				sendQuestionToServer(QuestionVar, rightcount - 1);
+
+				console.log(QuestionVar);
+				arr.push(QuestionVar);
+
+			} else {
+				// update
+				//Update its
+
+				let temp = $('#qno').text();
+
+				// just changing the ui the user added or removed answer
+				// not good coding style think of changing it later
+				let questionNo = temp.substr(18);
+				$('#' + questionNo).attr('class', btnclass);
+
+				QuestionVar.questionId = $('#QuestionIdForUpdate').val();
+				updateQuestionToServer(QuestionVar);
+
+				console.log('updateing');
+				console.log(QuestionVar);
+
+			}
+
+
+		} else if(xx==="true-false") {
+
+			console.log("True False");
+			QuestionVar.QuestionType=2;
+			console.log(QuestionVar.QuestionType);
+			QuestionVar.QuestionBody=$("#qqT").val();
+			console.log(QuestionVar.QuestionBody);
+			QuestionVar.OptionsArray = [];
+			QuestionVar.AnswerBody = "-1";
+			for(let ii=1;ii<3;ii++) {
+				let t = $('#tfOption' + ii).val();
+				if(t !== undefined) {
+					QuestionVar.OptionsArray.push($(("#").concat("tfOption", ii)).val());
+					if ($('#tfOption' + ii).is(":checked")) {
+						QuestionVar.AnswerBody = QuestionVar.OptionsArray.length+"";
+					}
+
+				}
+			}
+			QuestionVar.Points = points;
+
+			let btnclass = "";
+
+			// here check removed or not
+
+			//Check user has answerd or not
+			if(QuestionVar.AnswerBody === "-1") btnclass="btn btn-danger hi";
+			else btnclass="btn btn-primary hi";
+
+
+			if($('#QuestionIdForUpdate').val() === '-1') {
+
+
+				// also add click listener so we can render it
+				var bb = $('<input/>').attr({
+					class : btnclass,
+					type : 'button',
+					id : rightcount,
+					value : (rightcount)
+				});
+				bb.css('width',"20%");
+				$("#rightDiv").append(bb);
+				$(("#").concat(rightcount)).css('margin-left','5%');
+				$(("#").concat(rightcount)).css('margin-bottom','5px');
+				$(("#").concat(rightcount)).css('display','inline-block');
+				// $("#rightDiv").append('<br>');
+				rightcount++;
+
+				// in response ask for the question id and set in question id
+
+				// also add the id to the current js id array
+				sendQuestionToServer(QuestionVar, rightcount - 1);
+
+				console.log(QuestionVar);
+				arr.push(QuestionVar);
+
+			} else {
+				// update
+				//Update its
+
+				let temp = $('#qno').text();
+
+				// just changing the ui the user added or removed answer
+				// not good coding style think of changing it later
+				let questionNo = temp.substr(18);
+				$('#' + questionNo).attr('class', btnclass);
+
+				QuestionVar.questionId = $('#QuestionIdForUpdate').val();
+				updateQuestionToServer(QuestionVar);
+
+				console.log('updateing');
+				console.log(QuestionVar);
+
+			}
+
+		} else if (xx === "Multiple-Ans") {
+
+			console.log("Multiple Ans");
+			QuestionVar.QuestionType=3;
+			console.log(QuestionVar.QuestionType);
+			QuestionVar.QuestionBody=$("#qqS").val();
+			console.log(QuestionVar.QuestionBody);
+			QuestionVar.OptionsArray = [];
+			QuestionVar.AnswerBody = "-1";
+			for(let ii=1;ii<noBtnShort;ii++) {
+				let t = $('#IDOPShort' + ii).val();
+				if(t !== undefined) {
+					QuestionVar.OptionsArray.push($(("#").concat("IDOPShort", ii)).val());
+
+					if ($('#checkbox' + ii).is(":checked")) {
+						if(QuestionVar.AnswerBody === "-1") {
+							QuestionVar.AnswerBody = QuestionVar.OptionsArray.length + "";
+						} else {
+							QuestionVar.AnswerBody += " " + QuestionVar.OptionsArray.length;
+						}
+					}
+
+				}
+			}
+			QuestionVar.Points = points;
+
+			let btnclass = "";
+
+			// here check removed or not
+
+			//Check user has answerd or not
+			if(QuestionVar.AnswerBody === "-1") btnclass="btn btn-danger hi";
+			else btnclass="btn btn-primary hi";
+
+			if($('#QuestionIdForUpdate').val() === '-1') {
+
+
+				// also add click listener so we can render it
+				var bb = $('<input/>').attr({
+					class : btnclass,
+					type : 'button',
+					id : rightcount,
+					value : (rightcount)
+				});
+				bb.css('width',"20%");
+				$("#rightDiv").append(bb);
+				$(("#").concat(rightcount)).css('margin-left','5%');
+				$(("#").concat(rightcount)).css('margin-bottom','5px');
+				$(("#").concat(rightcount)).css('display','inline-block');
+				// $("#rightDiv").append('<br>');
+				rightcount++;
+
+				// in response ask for the question id and set in question id
+
+				// also add the id to the current js id array
+				sendQuestionToServer(QuestionVar, rightcount - 1);
+
+				console.log(QuestionVar);
+				arr.push(QuestionVar);
+
+			} else {
+				// update
+				//Update its
+
+				let temp = $('#qno').text();
+
+				// just changing the ui the user added or removed answer
+				// not good coding style think of changing it later
+				let questionNo = temp.substr(18);
+				$('#' + questionNo).attr('class', btnclass);
+
+				QuestionVar.questionId = $('#QuestionIdForUpdate').val();
+				updateQuestionToServer(QuestionVar);
+
+				console.log('updating');
+				console.log(QuestionVar);
+
+			}
+
+
+		} else {
+
+			// Do nothing just eat 5 star
+			console.log('Nothing selected but submit');
+		}
+		QuestionVar = {
+			questionId : "",
+			QuestionType : -1,
+			QuestionBody : "",
+			OptionsArray : [],
+			AnswerBody : ""
+		};
+		return false;
+	}
+
+
+	//***************************************************************************
+	function AddQuestion() {
+		var ttxx=('Question Number : ').concat(rightcount);
+		$("#qno").text(ttxx);
+		$('#QuestionIdForUpdate').val('');
+		$('#ii1').text('Save');
+		clear();
+		return false;
+	}
+
+	//***************************************************************************
+	var loggedIn=false;
+	if(loggedIn==true) {
+		$("#logginn").css('display','none');
+		$("#loggoutt").css('display','block');
+	} else {
+		$("#logginn").css('display','block');
+		$("#loggoutt").css('display','block');
+	}
+	var modal = document.getElementById('id01');
+	var m2=$("#logout-modal");
+	window.onclick = function(event)
+	{
+		if (event.target == modal)
+		{
+			modal.style.display = "none";
+			m2.css('display','none');
+		}
+	}
+	//***************************************************************************
+	function logout() {
+		$("#logout-modal").css('display','block');
+	}
+	//***************************************************************************
+	function myFunction()
+	{
+		document.getElementById("myDropdown").classList.toggle("show");
+	}
+	//***************************************************************************
+	function loginform()
+	{
+		document.getElementById('id01').style.display='block';
+	}
+	//***************************************************************************
+	function sendQuestionToServer(question, number) {
+		$.ajax({
+			url: "http://localhost:8082/quiz/" + quizId + "/edit",
+			type: "POST",
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(question),
+
+			success: function(data) {
+				console.log('data return id' + data);
+				$('#QuestionIdForUpdate').val(data.questionId);
+				questionsId.push(data.questionId);
+				$('#' + number).attr('onclick', 'print("' +data.questionId + '", '+number+')');
+				$('#ii1').text("Update")
+			},
+			error: function (e) {
+				console.log(e);
+			}
+		})
+	}
+
+	function updateQuestionToServer(question) {
+		$.ajax({
+			url: "http://localhost:8082/question/update",
+			type: "POST",
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(question),
+
+			success: function(data) {
+
+				console.log(question);
+
+				console.log('data send to the server for updating');
+			},
+			error: function (e) {
+				console.log(e);
+			}
+		})
+	}
+
+	function getQuestionById(questionId, value) {
+		let ans = {};
+		let object = {};
+		object['type'] = 1;
+		$.ajax({
+			url: "http://localhost:8082/question/" + questionId,
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify(object),
+			dataType: "json",
+			success:function(data) {
+				ans = data;
+				clear();
+				if (data.type === "1") {
+					console.log('VAlUE IS' + value);
+					$('#qno').text("Question Number : " + value);
+					funMCQ();
+
+					// Just for better user experience
+					$('#ii1').text('Update');
+
+					$('#QuestionIdForUpdate').val(data.questionId);
+
+					console.log(data.points);
+
+					$('#qqpoints').val(data.points);
+					$('#qqM').val(data.questionContent);
+
+					let options = data.options;
+					let numberOfOptions = options.length;
+
+					for(let p = 1; p < numberOfOptions; p++) {
+						addOption();
+					}
+
+					for(let p = 1; p<=numberOfOptions; p++) {
+						$('#IDOP' + p).val(options[p-1]);
+					}
+
+					let correctAnswer = data.correctAnswer;
+					if(correctAnswer !== '-1') {
+						$('#radioAns' + (correctAnswer)).attr('checked', 'true');
+					}
+				} else if (data.type === "2") {
+
+
+					console.log('VAlUE IS' + value);
+					$('#qno').text("Question Number : " + value);
+					funTF();
+
+					// Just for better user experience
+					$('#ii1').text('Update');
+
+					$('#QuestionIdForUpdate').val(data.questionId);
+
+					console.log(data.points);
+
+					$('#qqpoints').val(data.points);
+					$('#qqT').val(data.questionContent);
+
+					let options = data.options;
+					let numberOfOptions = options.length;
+
+					for(let p = 1; p<=numberOfOptions; p++) {
+						$('#tfOption' + p).val(options[p-1]);
+					}
+
+					let correctAnswer = data.correctAnswer;
+					console.log('2 nd type ' + correctAnswer);
+
+					$('input[name=truefalse]').attr('checked',false);
+
+					if(correctAnswer !== '-1') {
+						$('#tfOption' + (correctAnswer)).attr('checked', 'true');
+					}
+
+
+				} else if (data.type === "3") {
+					console.log('VAlUE IS' + value);
+					$('#qno').text("Question Number : " + value);
+					funShort();
+
+					// Just for better user experience
+					$('#ii1').text('Update');
+
+					$('#QuestionIdForUpdate').val(data.questionId);
+
+					console.log(data.points);
+
+					$('#qqpoints').val(data.points);
+					$('#qqS').val(data.questionContent);
+
+					let options = data.options;
+					let numberOfOptions = options.length;
+
+					for(let p = 1; p < numberOfOptions; p++) {
+						addOptionShort();
+					}
+
+					for(let p = 1; p<=numberOfOptions; p++) {
+						$('#IDOPShort' + p).val(options[p-1]);
+					}
+
+					let correctAnswer = data.correctAnswer;
+					if(correctAnswer !== '-1') {
+						let anss = correctAnswer.split(' ');
+						for(let k = 0; k <anss.length; k++) {
+							$('#checkbox' + (anss[k])).attr('checked', 'true');
+						}
+					}
+				} else {
+					// do nothing just eat 5 star
+				}
+
+			}
+		})
+		return ans;
+	}
+
+	function clear() {
+		$("#addBtn").empty();
+		$("#addBtnShort").empty();
+		$("#qqM").val('');
+		$('#qqT').val('');
+		$('#qqS').val('');
+		noBtn = 1;
+		noBtnShort=1;
+		$('#QuestionIdForUpdate').val('-1');
+		$("input[type='radio'][name='ip']:checked").prop('checked',false);
+		document.getElementById('TopicOfMCQ').style.display = 'none';
+		document.getElementById('TopicOfTF').style.display = 'none';
+		document.getElementById('TopicOfShort').style.display = 'none';
+	}
+
+</script>
+
+</body>
+</html>

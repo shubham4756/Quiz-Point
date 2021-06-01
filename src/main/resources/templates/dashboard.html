@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style type="text/css">
+    .modal-title {
+
+    }
+    html
+    {
+        scroll-behavior: smooth;
+    }
+    body
+    {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .left
+    {
+        float: left;
+        width: 160px;
+        margin-left: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
+    .imgcontainer {
+        position: relative;
+    }
+    .r1,.r2
+    {
+        width:100%;
+        padding:10px 15px;
+        margin:5px 0px;
+        border: 1px solid lightgrey;
+        outline: none;
+        border-radius: 2px;
+        font-size: 17px;
+
+    }
+
+    .right
+    {
+        float: left;
+        margin-top: 5px;
+        padding-bottom: 30px;
+    }
+    .modal-dialog {
+        width: 30%;
+        margin-top: 130PX;
+    }
+
+    .z
+    {
+
+        /*z-index:1;*/
+        margin-top: 5px;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: 80px;
+        box-shadow: 0px 10px 10px -10px #000000;
+        outline: none;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        background-image: none;
+    }
+    .y
+    {
+        text-decoration: none;
+        color: black;
+        margin-left: 5px;
+        padding-bottom: 30px;
+    }
+    .y:hover
+    {   text-decoration: none;
+        color: black;}
+    .d1
+    {
+        float: left;
+        margin-left: 48px;
+        padding-bottom: 30px;
+    }
+    .jumbotron {
+        margin: 15px;
+        height: 1000px;
+    }
+    .display-4 {
+        text-align: center;
+        margin-top: -35px;
+    }
+    .g
+    {
+        float: right;
+        margin-right: 120px;
+        margin-bottom: 25px;
+        margin-top: -8px;
+
+    }
+    .modal-title {
+        text-align: center;
+    }
+    .dd {
+
+        padding: 10px;
+    }
+    .mmm {
+
+    }
+
+
+    .x71
+    {
+        background-color:rgb(153, 204, 255);
+        color: white;
+        padding: 8px 18px;
+        margin: 8px 0;
+        margin-bottom: 20px;
+        border: none;
+        cursor: pointer;
+        width: auto;
+        border-radius: 2px;
+    }
+    #ii1 , #ii2, #ii3 {
+        align-self: center;
+        display: inline-block;
+    }
+    .oo1 {
+        display: inline-block;
+    }
+    .hi {
+        display: inline-block;
+    }
+
+    #xx1, #qqpoints {
+        display: inline-block;
+    }
+    .xbutn {
+        background-color:red;
+        text-align: center;
+        color: white;
+        padding: 8px 18px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: auto;
+        border-radius: 2px;
+    }
+    .aa1 {
+        margin-bottom: 10px;
+    }
+    .ppp {
+        padding: 0px;
+    }
+    .xbutg {
+        background-color:green;
+        color: white;
+        text-align: center;
+        padding: 8px 18px;
+        margin: 20px 0;
+        border: none;
+        cursor: pointer;
+        border-radius: 2px;
+    }
+    .input-group-prepend {
+        display: inline-block;
+    }
+
+    .x71:hover
+    {
+        opacity: 0.8;
+    }
+    .lll {
+
+    }
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+    }
+    .bg
+    {
+        width: 100%;
+        height: 630px;
+        background-image: url("https://images.pexels.com/photos/374857/pexels-photo-374857.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size:cover;
+    }
+
+</style>
+<body>
+
+<div class="z" >
+    <div class="left">
+        <a th:href="${'/'}"><img alt="logo" src="../static/logo.jpeg" style="size: 12px"></a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/fluent/2x/book.png" style="width:25px;margin-left:15px;margin-top:4px">
+    </div>
+    <div class="right">
+        <a href="/dashboard" class="y">Dashboard</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/dusk/2x/add-property.png" style="width:25px;margin-left:15px;margin-top:4px">
+    </div>
+    <div class="right">
+        <a href="/createquizform" class="y">Create Quiz</a>
+    </div>
+    <div class="d1">
+        <img style="width: 20px;margin-top: 9px" src="https://img.icons8.com/color/2x/about.png">
+    </div>
+    <div class="right">
+        <a href="/#ab" class="y"  >About us</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/color/2x/user-group-skin-type-7.png" style="width:35px;margin-left:15px">
+    </div>
+    <div class="right">
+        <a href="/#dev" class="y">Team</a>
+    </div>
+    <div class="d1">
+        <img src="https://img.icons8.com/ultraviolet/2x/add-contact-to-company.png" style="width:25px;margin-left:15px;margin-top:4px">
+    </div>
+    <div class="right">
+        <a href="/#contact" class="y">Contact us</a>
+    </div>
+    <div id="loggoutt">
+        <div class="d1">
+            <img src="https://img.icons8.com/color/2x/about-us-male--v1.png" style="width:35px;margin-left:15px">
+        </div>
+        <div class="right">
+            <a href="/user/profile" class="y">Profile Info</a>
+        </div>
+
+        <div class='g' id='firstx'>
+            <button class='x71' onclick='logout()' style='width:auto;' type='button'>Logout</button>
+        </div>
+    </div>
+    <div class='g' id='firstx'>
+        <form th:action="${'/login'}" method="get">
+            <button type="submit" class='x71' style='width:auto;' id="logginn">Login</button>
+<!--            <button >Login</button>-->
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 500px;">
+            <div class="modal-header" style="text-align: center;">
+                <h2 class="modal-title" id="exampleModalLongTitle" style="margin-left: 130px; margin-top: 30px;"><b>Login Form</b></h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="wrapper" style="width: 500px;height:auto;margin: 30px;padding: 30px; margin-top: -20px; border-radius:5px;overflow: hidden;">
+                <div class="form-container" style="width: 100%;">
+                    <div class="form-inner" style="display: flex;width: 500px;">
+                        <form action="home.html" method="post" class="login" id="login" style="width:50%;">
+                            <div style="height: 50px; width: 350px;margin: 20px auto;padding-top: 2px;padding-bottom: 2px; text-align: center;">
+                                <input type="text" class="r1" placeholder="username or email" name="name" required="">
+                            </div>
+                            <div style="height: 50px; width: 350px;margin: 20px auto;padding-top: 2px;padding-bottom: 2px; text-align: center;">
+                                <input type="password" class="r2" placeholder="Password" name="password" required="">
+                            </div><br>
+                            <div class="pass-link">
+                                <a href="forgotpassword.html">Forgot password?</a><br><br>
+                            </div>
+                            <div>
+                                <input type="submit" class="btn btn-success btn-lg btn-block" value="Login" style="width: 350px;">
+                            </div><br>
+                            <div class="signup-link">Not a member? <a href="signup.html">Signup now</a></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="modal-header" style="text-align: center;">
+                <h2 class="modal-title" id="exampleModalLongTitle" style="margin-left: 150px;"><b>Login Form</b></h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<div id="logout-modal" class="modal" style="margin-left: 550px; margin-top: 100px;" >
+    <div class="modal-content animate" style="width: 400px; align-content: center;">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('logout-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        </div>
+        <div class="wrapper" style="width:100%;height:70%;margin: 15px;padding: 30px;border-radius:5px;overflow: hidden;">
+            <div class="title-text" style="display: flex;width: 200%; text-align: center;">
+                <div class="title login" style="width: 50%;font-size:35px;font-weight: 600;text-align: center;">Logout</div>
+                <hr>
+            </div>
+            <br>
+            <div class="form-container" style="width: 100%;overflow: hidden; align-content: center;">
+                <div class="form-inner" style="display: flex;width: 200%;">
+                    <form action="home.html" method="post" class="login" id="login" style="width:50%; align-content: center;">
+                        <h2 style="color: red; text-align: center;">Are You Sure ? </h2><br>
+                        <button class='xbutg' onclick="document.getElementById('logout-modal').style.display='none'" style='width:300px;
+                                align-content: center;' type='button' >NO</button>
+                        <button class='xbutn' style='width:300px; text-align: center;' type='submit'>YES</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div width="100%" style="margin: 50px;">
+    <div th:each="q : ${quizes}" >
+        <div class='jumbotron' style='height: 350px; width: 250px; padding: 20px; margin-left: 15px; margin-top:15px; text-align: center; float:left;'>
+            <form th:action="${'/quiz/' + q.getId() + '/register'}" style="vertical-align: center; horiz-align: center; width: 100%; height: 100%;" method="get">
+                <h2 ><b th:text="${q.getQuizName()}" style="overflow: hidden;"></b></h2><br>
+                <b>About:</b>
+                <p th:text="${q.getDescription()}" style="font-size: 15px; overflow: hidden;"></p>
+                <b>Will Start At</b><br>
+                <b th:text="${'Date: ' + q.getDate()}"></b><br>
+                <b th:text="${'Time: ' + q.getTime()}"></b><br><br>
+                <button type="submit" class='btn btn-success' >Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const loggedIn = [[${isLogged}]];
+    console.log([[${isLogged}]]);
+    if(loggedIn===true) {
+        $("#logginn").css('display','none');
+        $("#loggoutt").css('display','block');
+    } else {
+        $("#logginn").css('display','block');
+        $("#loggoutt").css('display','none');
+    }
+    var modal = document.getElementById('id01');
+    var m2=$("#logout-modal");
+    window.onclick = function(event)
+    {
+        if (event.target == modal)
+        {
+            modal.style.display = "none";
+            m2.css('display','none');
+        }
+    }
+    function logout() {
+        $("#logout-modal").css('display','block');
+    }
+    function myFunction()
+    {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    function loginform()
+    {
+        document.getElementById('id01').style.display='block';
+    }
+
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+
+
